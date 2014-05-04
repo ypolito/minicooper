@@ -1,0 +1,11 @@
+Inicio de actividades del proyecto: 30/04/2014
+Estimacion : 6 meses
+
+Estrucutra del repositorio:
+Carpeta JAVA   : se alamacena el workspace de Java
+Carpeta ANDORID: se alamacena el workspace de Java
+Carpeta ARDUINO: se alamacenan los esquemas de Arduino
+
+
+ETAPAS
+ALFA: Se crea una aplicacion Java cliente para registrar la humedad y temperatura ambientes. Los datos provienen de un modulo arduino.
