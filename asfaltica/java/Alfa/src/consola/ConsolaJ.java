@@ -87,23 +87,21 @@ public class ConsolaJ extends JFrame {
   // Integracion
   GroupLayout gl_contentPane = new GroupLayout(contentPane);
   gl_contentPane.setHorizontalGroup(
-   gl_contentPane.createParallelGroup(Alignment.LEADING)
-    .addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-    .addGroup(gl_contentPane.createSequentialGroup()
-     .addComponent(textPane, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-     .addContainerGap())
-    .addGroup(gl_contentPane.createSequentialGroup()
-     .addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
-     .addContainerGap())
+  	gl_contentPane.createParallelGroup(Alignment.LEADING)
+  		.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+  		.addGroup(gl_contentPane.createSequentialGroup()
+  			.addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
+  			.addContainerGap())
+  		.addComponent(textPane, GroupLayout.DEFAULT_SIZE, 434, Short.MAX_VALUE)
   );
   gl_contentPane.setVerticalGroup(
-   gl_contentPane.createParallelGroup(Alignment.TRAILING)
-    .addGroup(gl_contentPane.createSequentialGroup()
-     .addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-     .addPreferredGap(ComponentPlacement.RELATED)
-     .addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
-     .addPreferredGap(ComponentPlacement.RELATED)
-     .addComponent(textPane, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
+  	gl_contentPane.createParallelGroup(Alignment.TRAILING)
+  		.addGroup(gl_contentPane.createSequentialGroup()
+  			.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+  			.addPreferredGap(ComponentPlacement.RELATED)
+  			.addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 149, Short.MAX_VALUE)
+  			.addPreferredGap(ComponentPlacement.RELATED)
+  			.addComponent(textPane, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE))
   );
   
   JButton btnIniciar = new JButton("Iniciar");
