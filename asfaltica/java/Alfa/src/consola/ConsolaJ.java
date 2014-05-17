@@ -110,6 +110,7 @@ public class ConsolaJ extends JFrame {
   JButton btnDetener = new JButton("Detener");
   toolBar.add(btnDetener);
   
+  // Inicia el generador de datos
   this.new DataGenerator(100).start();
   
   contentPane.setLayout(gl_contentPane);
