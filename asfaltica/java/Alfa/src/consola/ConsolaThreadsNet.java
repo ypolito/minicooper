@@ -20,7 +20,10 @@ import java.awt.event.ActionEvent;
 public class ConsolaThreadsNet extends JFrame {
 
 	private JPanel contentPane;
-
+    private JTextArea textArea;
+    private SimpleThread miThread;
+	private int hilos=0;
+    
 	/**
 	 * Launch the application.
 	 */
@@ -67,45 +70,54 @@ public class ConsolaThreadsNet extends JFrame {
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
 		);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		scrollPane.setViewportView(textArea);
-		
-		
-		
 		textArea.append("Consola"+ "\n");
-		
-		for ( int factor = 1; factor <= 9; factor ++ ) {
-		 
-			textArea.append("Prueba de logging "+ factor + "\n");
-		}
-		
 		
 		
 		JButton btnIniciar = new JButton("Iniciar");
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				SimpleThread miThread = new SimpleThread("Hilo de prueba");
+				// El contenido de la variable se actualiza con el nuevo thread, y se pierde control del thread anterior
+				miThread = new SimpleThread("Hilo de prueba");
+				
+				logeo("Se inicia thread");
 				miThread.start();				
 			}
 		});
 		toolBar.add(btnIniciar);
 		
 		JButton btnDetener = new JButton("Detener");
+		btnDetener.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				miThread.stop();
+				logeo("Se detiene el thread");
+			}
+		});
 		toolBar.add(btnDetener);
 		contentPane.setLayout(gl_contentPane);
 	}
 
 	
+	public void logeo(String logtext) {
+		textArea.append(logtext + "\n");
+	}
+	
 	public class SimpleThread extends Thread {
-        // constructor. El parameotr str permite asignar un Nombre al thread
+        // constructor. El parametro str permite asignar un Nombre al thread
         public SimpleThread (String str) {
         super(str);
         }
 
         // redefinición del método run()
         public void run() {
-        for(int i=0;i<10;i++)
-        System.out.println("Este es el thread : " + getName());
+        	hilos = hilos + 1;
+        	int nrohilo = hilos;
+        	logeo("Este es el thread : " + getName() + " hilo " + nrohilo);
+        	try { sleep(20000); } 
+        	catch (InterruptedException e){}
+        	logeo("Fin : " + getName()+ " hilo " + nrohilo);
         }
+        
 }
 }
