@@ -22,7 +22,7 @@ public class ConsolaThreadsNet extends JFrame {
 	private JPanel contentPane;
     private JTextArea textArea;
     private SimpleThread miThread;
-	private int hilos=0;
+	static  boolean estadoServicio = false;
     
 	/**
 	 * Launch the application.
@@ -79,10 +79,12 @@ public class ConsolaThreadsNet extends JFrame {
 		btnIniciar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				// El contenido de la variable se actualiza con el nuevo thread, y se pierde control del thread anterior
-				miThread = new SimpleThread("Hilo de prueba");
-				
+				if (estadoServicio == false) {
+				estadoServicio=true;					
+				miThread = new SimpleThread("ComTC/PIP");
 				logeo("Se inicia thread");
-				miThread.start();				
+				miThread.start();	
+				}
 			}
 		});
 		toolBar.add(btnIniciar);
@@ -90,8 +92,10 @@ public class ConsolaThreadsNet extends JFrame {
 		JButton btnDetener = new JButton("Detener");
 		btnDetener.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				miThread.stop();
+				if (estadoServicio==true) {
+					estadoServicio = false;
 				logeo("Se detiene el thread");
+				}
 			}
 		});
 		toolBar.add(btnDetener);
@@ -111,12 +115,15 @@ public class ConsolaThreadsNet extends JFrame {
 
         // redefinición del método run()
         public void run() {
-        	hilos = hilos + 1;
-        	int nrohilo = hilos;
-        	logeo("Este es el thread : " + getName() + " hilo " + nrohilo);
-        	try { sleep(20000); } 
+        	while (estadoServicio) {
+        	logeo("Thread : " + getName() + " en ejcucion");
+        	if (estadoServicio) {
+        	try { sleep(2000); } 
         	catch (InterruptedException e){}
-        	logeo("Fin : " + getName()+ " hilo " + nrohilo);
+        	logeo("Ciclando... ");
+        	}
+        	}
+        	logeo("Thread : " + getName() + " INTERRUMPIDO...");
         }
         
 }

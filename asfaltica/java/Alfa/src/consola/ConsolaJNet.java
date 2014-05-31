@@ -16,6 +16,11 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
 
+/**
+ * @author claudio
+ *
+ */
+
 public class ConsolaJNet extends JFrame {
 
 	private JPanel contentPane;
