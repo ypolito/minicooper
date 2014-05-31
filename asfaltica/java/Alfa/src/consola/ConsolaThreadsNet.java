@@ -1,6 +1,7 @@
 package consola;
 
 import java.awt.BorderLayout;
+
 import java.awt.EventQueue;
 
 import javax.swing.GroupLayout;
@@ -17,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+import java.net.*;
+import java.io.*;
+
+
 public class ConsolaThreadsNet extends JFrame {
 
 	private JPanel contentPane;
@@ -24,6 +29,15 @@ public class ConsolaThreadsNet extends JFrame {
     private SimpleThread miThread;
 	static  boolean estadoServicio = false;
     
+	ServerSocket s = null;
+    Socket cliente = null;
+
+    DataInputStream sIn; // Stream de entrada
+    PrintStream sOut;    // Stream de salida
+
+    String texto;
+	
+	
 	/**
 	 * Launch the application.
 	 */
@@ -81,7 +95,7 @@ public class ConsolaThreadsNet extends JFrame {
 				// El contenido de la variable se actualiza con el nuevo thread, y se pierde control del thread anterior
 				if (estadoServicio == false) {
 				estadoServicio=true;					
-				miThread = new SimpleThread("ComTC/PIP");
+				miThread = new SimpleThread("ComTC/IP");
 				logeo("Se inicia thread");
 				miThread.start();	
 				}
@@ -115,16 +129,54 @@ public class ConsolaThreadsNet extends JFrame {
 
         // redefinición del método run()
         public void run() {
-        	while (estadoServicio) {
-        	logeo("Thread : " + getName() + " en ejcucion");
-        	if (estadoServicio) {
-        	try { sleep(2000); } 
-        	catch (InterruptedException e){}
-        	logeo("Ciclando... ");
-        	}
-        	}
+
+        	// Abrimos una conexión a la consolaJ en el puerto 9999
+            // No podemos elegir un puerto por debajo del 1023 si no somos
+            // usuarios con los máximos privilegios (root)
+            try {
+                s = new ServerSocket( 9999 );
+            } catch( IOException e ) {
+            	logeo (e + " No se pudo abrir el socket");
+                }    	
+        	
+            // Creamos el objeto desde el cual atenderemos y aceptaremos
+            // las conexiones de los clientes y abrimos los canales de  
+            // comunicación de entrada y salida
+            try {
+                cliente = s.accept();
+                sIn = new DataInputStream( cliente.getInputStream() );
+                sOut = new PrintStream( cliente.getOutputStream() );
+                logeo ("Se incia la comunicacion TCP/IP");
+                
+                // Cuando recibamos datos, se los devolvemos al cliente
+                // que los haya enviado
+                while( estadoServicio )
+                    {
+                    texto = sIn.readLine();
+                    sOut.println( texto );
+                    if (texto != null)
+                    {
+                    	logeo (texto);
+                    }
+                    }
+            } catch( IOException e ) {
+            	logeo (e + " No se pudo atender peticiones");
+                }
+        	
         	logeo("Thread : " + getName() + " INTERRUMPIDO...");
+        	
+        	try {
+                sIn.close();
+                sOut.close();
+                cliente.close();
+                s.close();
+            } catch( IOException e ) {
+            	logeo (e + " No se pudo cerrar el socket");
+                }
+        	
         }
         
 }
+
+
 }

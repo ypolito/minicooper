@@ -16,6 +16,8 @@ public class MinimoServidor {
 
         String texto;
 
+        
+        // Creacion y Apertura 
         // Abrimos una conexión con breogan en el puerto 9999
         // No podemos elegir un puerto por debajo del 1023 si no somos
         // usuarios con los máximos privilegios (root)
