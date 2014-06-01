@@ -49,7 +49,6 @@ public class ConsolaThreadsNet extends JFrame {
 	// Series para alimentar el dataset
 	XYSeries series1 = new XYSeries("Humedad");
 	XYSeries series2 = new XYSeries("Temperatura");
-
     
 	ServerSocket s = null;
     Socket cliente = null;
@@ -163,6 +162,12 @@ public class ConsolaThreadsNet extends JFrame {
         // redefinición del método run()
         public void run() {
 
+        	int tiempo;
+        	float humedad;
+        	float temperatura;
+        	int pos1;
+        	int pos2;
+        	
         	// Abrimos una conexión a la consolaJ en el puerto 9999
             // No podemos elegir un puerto por debajo del 1023 si no somos
             // usuarios con los máximos privilegios (root)
@@ -186,10 +191,23 @@ public class ConsolaThreadsNet extends JFrame {
                 while( estadoServicio )
                     {
                     texto = sIn.readLine();
-                    sOut.println( texto );
+            //        sOut.println( texto );
                     if (texto != null)
                     {
-                    	logeo (texto);
+                    	logeo(texto);
+                    	
+                    	pos1 = texto.indexOf("#",0)-1;
+                    	pos2 = texto.indexOf("#",pos1+2)-1;
+                    	
+                    	if (pos1 > 1){
+                    	tiempo = Integer.parseInt(texto.substring(0, pos1)) ;
+                    	humedad = Float.parseFloat(texto.substring(pos1+2, pos2));
+                    	temperatura = Float.parseFloat(texto.substring(pos2+2, texto.length()));
+                    	addDatasetValue(tiempo, humedad, temperatura);
+                    	
+                    	}
+                    	//addDatasetValue(1, 2, 10);
+                    	
                     }
                     }
             } catch( IOException e ) {
@@ -276,4 +294,20 @@ rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
 return chart;
 }
 
+
+
+
+/**
+* Agreega valores al dataset.
+*
+*/
+private void addDatasetValue (int tiempo,float humedad, float temperatura)
+
+{
+	
+	series1.add(tiempo, humedad);
+	series2.add(tiempo, temperatura);
+	
+	
+}
 }
