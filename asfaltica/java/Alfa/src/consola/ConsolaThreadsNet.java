@@ -1,6 +1,7 @@
 package consola;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 
 import java.awt.EventQueue;
 
@@ -15,6 +16,21 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RectangleInsets;
+
+
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -28,6 +44,12 @@ public class ConsolaThreadsNet extends JFrame {
     private JTextArea textArea;
     private SimpleThread miThread;
 	static  boolean estadoServicio = false;
+	
+	
+	// Series para alimentar el dataset
+	XYSeries series1 = new XYSeries("Humedad");
+	XYSeries series2 = new XYSeries("Temperatura");
+
     
 	ServerSocket s = null;
     Socket cliente = null;
@@ -67,20 +89,31 @@ public class ConsolaThreadsNet extends JFrame {
 		JToolBar toolBar = new JToolBar();
 		toolBar.setFloatable(false);
 		
+        // Creacion del dataset
+		XYDataset dataset = createDataset();
+		
+		// Creacion del grafico
+		JFreeChart chart = createChart(dataset);		
+		ChartPanel chartPanel = new ChartPanel(chart);
+		
+		// Integracion
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
 		scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
-				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 502, Short.MAX_VALUE)
+				.addComponent(toolBar, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
 				.addComponent(scrollPane, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
+				.addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(toolBar, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 191, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(chartPanel, GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED)
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 95, GroupLayout.PREFERRED_SIZE))
 		);
 		
@@ -178,5 +211,69 @@ public class ConsolaThreadsNet extends JFrame {
         
 }
 
+	
+    /**
+* Creates a sample dataset.
+*
+* @return a sample dataset.
+*/
+private  XYDataset createDataset() {
+
+this.series1.add(0, 0);
+this.series2.add(0, 0);
+
+XYSeriesCollection dataset = new XYSeriesCollection();
+dataset.addSeries(series1);
+dataset.addSeries(series2);
+
+return dataset;
+}
+
+
+
+/**
+* Creates a chart.
+*
+* @param dataset the data for the chart.
+*
+* @return a chart.
+*/
+private static JFreeChart createChart(XYDataset dataset) {
+
+// create the chart...
+JFreeChart chart = ChartFactory.createXYLineChart(
+"Demo Grafico Lineas, integrado a JFreeChart", // chart title
+"X", // x axis label
+"Y", // y axis label
+dataset, // data
+PlotOrientation.VERTICAL,
+true, // include legend
+true, // tooltips
+false // urls
+);
+// NOW DO SOME OPTIONAL CUSTOMISATION OF THE CHART...
+// RGBtoHSB(240, 240, 240, hsbvals)
+
+chart.setBackgroundPaint(Color.getHSBColor(0,0,0.94f));
+//chart.setBackgroundPaint(Color.blue);
+// get a reference to the plot for further customisation...
+XYPlot plot = (XYPlot) chart.getPlot();
+plot.setBackgroundPaint(Color.white);
+plot.setAxisOffset(new RectangleInsets(5.0, 5.0, 5.0, 5.0));
+
+
+plot.setDomainGridlinePaint(Color.black);
+plot.setRangeGridlinePaint(Color.black);
+XYLineAndShapeRenderer renderer
+= (XYLineAndShapeRenderer) plot.getRenderer();
+
+renderer.setShapesVisible(true);
+renderer.setShapesFilled(false);
+// change the auto tick unit selection to integer units only...
+NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+// OPTIONAL CUSTOMISATION COMPLETED.
+return chart;
+}
 
 }

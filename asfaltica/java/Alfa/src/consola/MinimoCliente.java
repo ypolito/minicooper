@@ -16,8 +16,8 @@ public class MinimoCliente {
 	        Socket s;
 	        InputStream sIn;
 	        PrintStream sOut;
-	        double humedad;
-	        double temperatura;
+	        float humedad;
+	        float temperatura;
 
 	        // Abrimos una conexión con depserver en el puerto 4321
 	        s = new Socket( "localhost", 9999 );
@@ -35,8 +35,8 @@ public class MinimoCliente {
 	            sOut = new PrintStream( s.getOutputStream() );
 	            sOut.println("AOK");
 	            for (int i=1;i<1000;i++) {
-	            	humedad = Math.random() * 100;
-	            	temperatura = Math.random() * 20;
+	            	humedad = (float)Math.random() * 100;
+	            	temperatura = (float)Math.random() * 20;
 	              	
 	            sOut.println(i*500+"#"+humedad+"#"+temperatura);
 	            Thread.sleep(500); 
