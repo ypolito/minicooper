@@ -182,7 +182,11 @@ public class ConsolaThreadsNet extends JFrame {
             // comunicación de entrada y salida
             try {
                 cliente = s.accept();
-                sIn = new DataInputStream( cliente.getInputStream() );
+                //sIn = new DataInputStream( cliente.getInputStream() );
+                
+                BufferedReader d  = new BufferedReader(new InputStreamReader(cliente.getInputStream() ));
+                
+                
                 sOut = new PrintStream( cliente.getOutputStream() );
                 logeo ("Se incia la comunicacion TCP/IP");
                 
@@ -190,24 +194,23 @@ public class ConsolaThreadsNet extends JFrame {
                 // que los haya enviado
                 while( estadoServicio )
                     {
-                    texto = sIn.readLine();
+                    //texto = sIn.readLine();
+                    texto = d.readLine();
             //        sOut.println( texto );
                     if (texto != null)
                     {
                     	logeo(texto);
                     	
-                    	pos1 = texto.indexOf("#",0)-1;
-                    	pos2 = texto.indexOf("#",pos1+2)-1;
-                    	
-                    	if (pos1 > 1){
-                    	tiempo = Integer.parseInt(texto.substring(0, pos1)) ;
-                    	humedad = Float.parseFloat(texto.substring(pos1+2, pos2));
-                    	temperatura = Float.parseFloat(texto.substring(pos2+2, texto.length()));
-                    	addDatasetValue(tiempo, humedad, temperatura);
+                    	if (texto.equals("AOK")==false ){
+                        	pos1 = texto.indexOf("#",0)-1;
+                        	pos2 = texto.indexOf("#",pos1+2)-1;
+
+                    		tiempo = Integer.parseInt(texto.substring(0, pos1)) ;
+                    		humedad = Float.parseFloat(texto.substring(pos1+2, pos2));
+                    		temperatura = Float.parseFloat(texto.substring(pos2+2, texto.length()));
+                    		addDatasetValue(tiempo, humedad, temperatura);
                     	
                     	}
-                    	//addDatasetValue(1, 2, 10);
-                    	
                     }
                     }
             } catch( IOException e ) {
