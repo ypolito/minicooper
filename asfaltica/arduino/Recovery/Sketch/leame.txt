@@ -1,0 +1,8 @@
+escala
+   Ejecuta una escala con la funcion tone()
+melody 
+   Ejecuta una melodia con la funcion tone()
+starwars
+   Ejecuta una melodia de star wars con la funcion tone()
+tonetest
+   Pruebas varias con la funcion tone()
