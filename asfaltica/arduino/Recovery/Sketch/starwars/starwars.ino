@@ -32,9 +32,12 @@ int melody[] = {
  NOTE_C5,NOTE_C5, NOTE_C5, NOTE_GS4, NOTE_DS5, NOTE_C5, NOTE_GS4, NOTE_DS5, NOTE_C5, NOTE_G6, NOTE_G6, NOTE_G6, NOTE_GS6, NOTE_DS6, NOTE_C6, NOTE_GS4, NOTE_DS5, NOTE_C5 };
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
-int noteDurations[] = { 4,4,4,4,8,4,4,8,4,4,4,4,4,8,4,4,8,8 };
+int noteDurations[] = { 4,4,4,4,8,4,4,8,4,4,4,4,4,8,4,4,8,3 };
 
 void setup() {
+  Serial.begin(9600); 
+  Serial.println("Hello world!");
+  Serial.println(sizeof(noteDurations));
   // iterate over the notes of the melody:
   for (int thisNote = 0; thisNote < 18; thisNote++) {
 

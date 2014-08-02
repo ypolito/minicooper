@@ -28,22 +28,25 @@ This example code is in the public domain.
 
 // notes in the melody:
 int melody[] = {
-  NOTE_CS7, NOTE_C6, NOTE_C5, NOTE_C4, NOTE_C3, NOTE_C2, NOTE_B1};
+  NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, 
+  NOTE_D4, NOTE_B3, NOTE_D4, NOTE_B3, NOTE_D4, NOTE_B3, NOTE_D4, NOTE_B3};
 
 // note durations: 4 = quarter note, 8 = eighth note, etc.:
 int noteDurations[] = {
-  2, 4, 4, 4, 4, 8, 8 };
+  3, 8, 3, 8, 3, 8, 3, 8,
+  16, 16, 16, 16, 16, 16, 16, 16
+  };
 
 void setup() {
   // iterate over the notes of the melody:
-  for (int thisNote = 0; thisNote < 8; thisNote++) {
+  for (int thisNote = 0; thisNote < 17; thisNote++) {
 
     // to calculate the note duration, take one second 
     // divided by the note type.
     //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
     int noteDuration = 2000/noteDurations[thisNote];
     tone(8, melody[thisNote],noteDuration);
-
+      //tone(8, melody[thisNote]);
     // to distinguish the notes, set a minimum time between them.
     // the note's duration + 30% seems to work well:
     int pauseBetweenNotes = noteDuration * 1.30;
