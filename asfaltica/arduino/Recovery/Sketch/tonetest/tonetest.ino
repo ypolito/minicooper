@@ -26,6 +26,8 @@ This example code is in the public domain.
  */
  #include "pitches.h"
 
+const int analogInPin = A3;
+
 // notes in the melody:
 int melody[] = {
   NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, NOTE_C8, NOTE_D8, 
@@ -37,9 +39,16 @@ int noteDurations[] = {
   16, 16, 16, 16, 16, 16, 16, 16
   };
 
+int val;
+
 void setup() {
+  
+    Serial.begin(9600); 
+    Serial.println("Hello world!");
+
+  
   // iterate over the notes of the melody:
-  for (int thisNote = 0; thisNote < 17; thisNote++) {
+  for (int thisNote = 0; thisNote < 16; thisNote++) {
 
     // to calculate the note duration, take one second 
     // divided by the note type.
@@ -51,6 +60,8 @@ void setup() {
     // the note's duration + 30% seems to work well:
     int pauseBetweenNotes = noteDuration * 1.30;
     delay(pauseBetweenNotes);
+    val=analogRead(analogInPin); //hago la lectura analógica en el pin A3
+    Serial.println(val);
     // stop the tone playing:
     noTone(8);
   }
