@@ -9,3 +9,4 @@ Carpeta ARDUINO: se alamacenan los esquemas de Arduino
 
 ETAPAS
 ALFA: Se crea una aplicacion Java cliente para registrar la humedad y temperatura ambientes. Los datos provienen de un modulo arduino.
+RECOVERY: Ante la falla de la placa GIP se debe crear una electronica equivalente y un soft java cliente para reemplazar la automatizacion.
