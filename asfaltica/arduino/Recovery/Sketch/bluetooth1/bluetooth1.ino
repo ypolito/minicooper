@@ -1,7 +1,7 @@
 #include <SoftwareSerial.h> //Librería que permite establecer comunicación serie en otros pins
  
 //Aquí conectamos los pins RXD,TDX del módulo Bluetooth.
-SoftwareSerial BT(10,11); //10 RX, 11 TX.
+SoftwareSerial BT(0,1); //0 RX, 1 TX.
  
 void setup()
 {
