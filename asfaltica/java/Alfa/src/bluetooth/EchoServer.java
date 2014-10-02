@@ -4,6 +4,7 @@ import java.io.*;
 import javax.bluetooth.*;
 import javax.microedition.io.*;
 
+
 public class EchoServer {
     public final UUID uuid = new UUID(                              //the uid of the service, it has to be unique,
 			"27012f0c68af4fbf8dbe6bbaf7aa432a", false); //it can be generated randomly
@@ -14,7 +15,7 @@ public class EchoServer {
     LocalDevice local = null;
     StreamConnectionNotifier server = null;
     StreamConnection conn = null;
-
+/* prueba svn*/
     public EchoServer() {
         try {
             System.out.println("Setting device to be discoverable...");
