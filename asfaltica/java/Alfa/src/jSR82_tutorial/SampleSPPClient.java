@@ -83,7 +83,7 @@ int index=Integer.parseInt(chosenIndex.trim());
 //check for spp service
 RemoteDevice remoteDevice=(RemoteDevice)vecDevices.elementAt(index-1);
 UUID[] uuidSet = new UUID[1];
-uuidSet[0]=new UUID("1101",false);
+uuidSet[0]=new UUID("1101",true);
 
 System.out.println("\nSearching for service...");
 agent.searchServices(null,uuidSet,remoteDevice,client);
@@ -102,16 +102,21 @@ System.out.println("Device does not support Simple SPP Service.");
 System.exit(0);
 }
 
-//connect to the server and send a line of text
+//
+System.out.println("...connect to the server and send a line of text");
 StreamConnection streamConnection=(StreamConnection)Connector.open(connectionURL);
 
+
+
 //send string
+System.out.println("...send string");
 OutputStream outStream=streamConnection.openOutputStream();
 PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
 pWriter.write("Test String from SPP Client\r\n");
 pWriter.flush();
 
 //read response
+System.out.println("...read response");
 InputStream inStream=streamConnection.openInputStream();
 BufferedReader bReader2=new BufferedReader(new InputStreamReader(inStream));
 String lineRead=bReader2.readLine();

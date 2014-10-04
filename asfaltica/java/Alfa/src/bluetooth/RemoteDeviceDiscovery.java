@@ -74,7 +74,10 @@ public class RemoteDeviceDiscovery
 			 * Called when service(s) are found during a service search.
 			 */
 
-            public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {}
+            public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
+            	System.out.println("servicesDiscovered!");
+            	
+            }
 			
         };	// End of DiscoveryListener
 
