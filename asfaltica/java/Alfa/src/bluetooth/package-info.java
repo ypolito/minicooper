@@ -1,5 +1,5 @@
 /**
- * 
+ * Administra comunicacion Bluettoth 
  */
 /**
  * @author claudio
