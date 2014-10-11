@@ -33,15 +33,11 @@ private static Vector vecDevices=new Vector();
 private static String connectionURL=null;
 
 
-
-
 public static void main(String[] args) throws IOException {
 	
 	ConexionBlueLab client=new ConexionBlueLab();
 
    //conexion(client);
-
-
 
 }//main
 
@@ -193,9 +189,6 @@ public void inquiryCompleted(int discType) {
 synchronized(lock){
 lock.notify();
 }
-
-
-
 }//end method
 
 
