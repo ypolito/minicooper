@@ -2,7 +2,7 @@
  
 //Aquí conectamos los pins RXD,TDX del módulo Bluetooth.
 SoftwareSerial BT(0,1); //0 RX, 1 TX.
- 
+ 5
 void setup()
 {
   BT.begin(9600); //Velocidad del puerto del módulo Bluetooth
