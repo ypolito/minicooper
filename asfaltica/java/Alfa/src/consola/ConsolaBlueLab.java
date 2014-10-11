@@ -109,7 +109,7 @@ public class ConsolaBlueLab extends JFrame {
            				}
     					
     				}
-    				 Dg.start();
+    				// Dg.start();
 				}
 			}
 		});
@@ -232,7 +232,7 @@ public class ConsolaBlueLab extends JFrame {
 	* Agrega valores al dataset.
 	*
 	*/
-	private void addDatasetValue ()
+    void addDatasetValue ()
 	
 	{
 		double maxX1 = series1.getMaxX() ;

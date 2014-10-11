@@ -156,6 +156,9 @@ System.out.println(lineRead);
 }
 }
 frame.textArea.append("Finaliza el proceso."+"\r\n");
+//frame.Dg.start();
+
+
 }
 //main
 
