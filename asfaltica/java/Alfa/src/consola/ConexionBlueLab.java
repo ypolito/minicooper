@@ -33,16 +33,9 @@ private static Vector vecDevices=new Vector();
 private static String connectionURL=null;
 
 
-public static void main(String[] args) throws IOException {
+public static void main( ConsolaBlueLab frame) throws IOException {
 	
-	ConexionBlueLab client=new ConexionBlueLab();
-
-   //conexion(client);
-
-}//main
-
-
-public static void conexion(ConexionBlueLab cliente, ConsolaBlueLab frame) throws IOException {
+	ConexionBlueLab cliente = new ConexionBlueLab();
 
 frame.textArea.append("Busqueda en progreso ...."+"\r\n");
 

@@ -31,28 +31,22 @@ public class Coneccion implements DiscoveryListener  {
 	public static Vector vecDevices=new Vector();
 	public static Vector<String> vecDevicesNames=new Vector<String>();
 
-	private static String connectionURL=null;
+	public static String connectionURL=null;
 	
 	private DiscoveryAgent agent;
 
 	private RemoteDevice remoteDevice;
 	
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
+	
+	public StreamConnection streamConnection;
 
     public Coneccion() throws BluetoothStateException {   
-    	//display local device address and name
 			LocalDevice localDevice = LocalDevice.getLocalDevice();
 			agent = localDevice.getDiscoveryAgent();
-			
+	
     }
     
-    public void iniciarBusqueda () throws BluetoothStateException 
+    public void buscarDispositivos () throws BluetoothStateException 
     {
     	System.out.println("Device Inquiry Starting. ");
 		agent.startInquiry(DiscoveryAgent.GIAC, this);
@@ -83,6 +77,54 @@ public class Coneccion implements DiscoveryListener  {
 		}
     }
     
+    
+    
+    public void buscarServicio(int index) throws BluetoothStateException
+    {
+    	RemoteDevice remoteDevice=(RemoteDevice)vecDevices.elementAt(index-1);
+    	UUID[] uuidSet = new UUID[1];
+    	uuidSet[0]=new UUID("1101",true);
+    	    	
+    	agent.searchServices(null,uuidSet,remoteDevice,this);
+
+    	try {
+    	synchronized(lock){
+    	lock.wait();
+    	}
+    	}
+    	catch (InterruptedException e) {
+    	e.printStackTrace();
+    	}
+    }
+    
+    public void abrirConeccion () throws IOException
+    {
+    	streamConnection=(StreamConnection)Connector.open(connectionURL);
+    }
+    
+    
+    public void enviarDato (String dato) throws IOException
+    {
+    	
+    	OutputStream outStream=streamConnection.openOutputStream();
+    	PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
+    	pWriter.write(dato);
+    	pWriter.flush();
+    }
+    
+    public String recibirDato() throws IOException
+                   
+    {
+    	System.out.println("...read response");
+    	InputStream inStream=streamConnection.openInputStream();
+    	BufferedReader bReader2=new BufferedReader(new InputStreamReader(inStream));
+    	String lineRead=bReader2.readLine();
+    	System.out.println("Data Recived Completed. ");
+		return lineRead;
+    	
+    	
+    }
+    
     public void deviceDiscovered(RemoteDevice btDevice, DeviceClass cod) {
     	//add the device to the vector
     	if(!vecDevices.contains(btDevice)){
@@ -105,17 +147,22 @@ public class Coneccion implements DiscoveryListener  {
     			}
     	}
 
-	@Override
-	public void serviceSearchCompleted(int arg0, int arg1) {
-		// TODO Auto-generated method stub
-		
+    	//implement this method since services are not being discovered
+    	public void serviceSearchCompleted(int transID, int respCode) {
+    	synchronized(lock){
+    	lock.notify();
+    	}
+    	}
+
+
+	//implement this method since services are not being discovered
+	public void servicesDiscovered(int transID, ServiceRecord[] servRecord) {
+	if(servRecord!=null && servRecord.length>0){
+	connectionURL=servRecord[0].getConnectionURL(0,false);
 	}
-
-
-	@Override
-	public void servicesDiscovered(int arg0, ServiceRecord[] arg1) {
-		// TODO Auto-generated method stub
-		
+	synchronized(lock){
+	lock.notify();
+	}
 	}
 
 }

@@ -285,9 +285,9 @@ public class ConsolaBlueLab extends JFrame {
 
         // redefinición del método run()
         public void run() {
-    		ConexionBlueLab client=new ConexionBlueLab();
     		try {
-    			ConexionBlueLab.conexion(client, esteFrame);
+    			//ConexionBlueLab.main(esteFrame);
+    			SampleSPPClient.main(null);
     			} catch (Exception e1) {
     			// TODO Auto-generated catch block
     			e1.printStackTrace();

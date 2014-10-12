@@ -13,9 +13,10 @@ void loop()
 {
   if(BT.available())
   {
-//    Serial.write(BT.read());
-     BT.write(BT.read());    
-    
+//  delay(3000);
+    BT.write(BT.read());    
+    Serial.write("recibido\n");
+   
   }
  /*
   if(Serial.available())
@@ -23,5 +24,8 @@ void loop()
      BT.write(Serial.read());
   }
   */
-  delay(1000);
+//  delay(3000);
+//       //BT.write("Secuencia");    
+//       Serial.write("delay\n");
+  
 }
