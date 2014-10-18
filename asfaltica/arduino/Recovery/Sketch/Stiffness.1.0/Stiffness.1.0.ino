@@ -4,39 +4,39 @@
 SoftwareSerial BT(10,11); //10 RX, 11 TX.
 int comando = 0;
 long randNumber;
+String comIn, comOut, part;
+int comBuild = 0; // Indica cuando se debe resetear el string que contitne el comando entrante
+
 void setup()
 {
   BT.begin(9600); //Velocidad del puerto del módulo Bluetooth
-  //  Serial.begin(9600); //Abrimos la comunicación serie con el PC y establecemos velocidad
+  Serial.begin(9600); //Abrimos la comunicación serie con el PC y establecemos velocidad
+  Serial.println("Inicio de servicios...");
 }
 
 void loop()
 {
-  if(BT.available())
-  {
-    comando = BT.read();
-  }
-  else
-  {
-    if (comando == 0)
-    {
-      delay(500);
-    }
-    if (comando == 1)
-    {
-      delay(500);
-      comando = 2;
-      BT.write("OK");
-    }
-    if (comando == 2)
-      randNumber = random(300);
-      BT.write(randNumber);
-  }
-  if (comando == 3)
-  {
-    delay(500);
-  }
 
-
+  while (BT.available())
+  {
+    if (   comBuild == 1 ) {
+      comIn == "";
+      comBuild = 0;
+    }
+    //part = BT.read();
+    comIn += BT.read();
+  }
+  
+  comBuild = 1;
+  Serial.print(comIn);
+  delay(1000);
+  
+  if (comIn == "SF+1")
+  {
+    randNumber = random(300);
+    BT.println(randNumber);    
+  }
+      BT.println(randNumber);    
 }
+
 
