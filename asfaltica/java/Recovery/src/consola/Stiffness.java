@@ -256,7 +256,7 @@ public class Stiffness extends JFrame {
 						if (conBT.streamConnection != null)
 						{
 							agregarLog("Enviar dato...");
-							conBT.enviarDato("1");
+							conBT.enviarDato("SF+1");
 							
 							for (int i = 0; i < 100; i++) {
 							

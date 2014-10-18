@@ -20,6 +20,8 @@ import javax.bluetooth.UUID;
 import javax.microedition.io.Connector;
 import javax.microedition.io.StreamConnection;
 
+import com.intel.bluetooth.RemoteDeviceHelper;
+
 
 public class Coneccion implements DiscoveryListener  {
 
@@ -36,7 +38,6 @@ public class Coneccion implements DiscoveryListener  {
 	private DiscoveryAgent agent;
 
 	private RemoteDevice remoteDevice;
-	
 	
 	public StreamConnection streamConnection;
 
@@ -81,7 +82,7 @@ public class Coneccion implements DiscoveryListener  {
     
     public void buscarServicio(int index) throws BluetoothStateException
     {
-    	RemoteDevice remoteDevice=(RemoteDevice)vecDevices.elementAt(index-1);
+    	remoteDevice=(RemoteDevice)vecDevices.elementAt(index-1);
     	UUID[] uuidSet = new UUID[1];
     	uuidSet[0]=new UUID("1101",true);
     	    	
@@ -99,6 +100,7 @@ public class Coneccion implements DiscoveryListener  {
     
     public void abrirConeccion () throws IOException
     {
+    	RemoteDeviceHelper.authenticate(remoteDevice, "1234");
     	streamConnection=(StreamConnection)Connector.open(connectionURL);
     }
     

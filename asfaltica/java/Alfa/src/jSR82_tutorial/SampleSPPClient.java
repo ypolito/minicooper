@@ -112,7 +112,7 @@ StreamConnection streamConnection=(StreamConnection)Connector.open(connectionURL
 System.out.println("...send string");
 OutputStream outStream=streamConnection.openOutputStream();
 PrintWriter pWriter=new PrintWriter(new OutputStreamWriter(outStream));
-pWriter.write("Test String from SPP Client\r\n");
+pWriter.write("SF+1\r\n");
 pWriter.flush();
 
 //read response
