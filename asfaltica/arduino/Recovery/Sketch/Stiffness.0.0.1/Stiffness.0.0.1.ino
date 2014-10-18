@@ -28,21 +28,14 @@ void loop()
     }
     char singleChar = BT.read();
     comIn += singleChar;
-    //comIn += "x";
   }
-  /*
-  if(recived == 1)
+
+  if (comIn == "SF+1")
   {
-    BT.println(comIn);    
-    recived = 0;
-  }
-  delay(1000);
-  */
-  if (comIn == "SF+1"  && recived == 1)
-  {
-    recived = 0;
     randNumber = random(300);
-    BT.println(randNumber);    
+    BT.println(randNumber);
+    comIn = "SF+2";
+    comBuild = 1;
   }
     //  BT.println(randNumber);    
 }

@@ -7,7 +7,7 @@ int inicio = 0;
 void setup()
 {
   BT.begin(9600); //Velocidad del puerto del módulo Bluetooth
-  Serial.begin(9600); //Abrimos la comunicación serie con el PC y establecemos velocidad
+  //Serial.begin(9600); //Abrimos la comunicación serie con el PC y establecemos velocidad
   //delay(2000);
   
 }
@@ -16,8 +16,9 @@ void loop()
 {
    while(BT.available())
   {
-    Serial.write(BT.read());
+    //Serial.write(BT.read());
     inicio = 1;
+    char c = BT.read(); // libera el buffer
 //    BT.write(BT.read());
   }
  
