@@ -35,7 +35,6 @@ void loop()
     randNumber = random(300);
     BT.println(randNumber);
     comIn = "SF+2";
-    comBuild = 1;
   }
     //  BT.println(randNumber);    
 }
