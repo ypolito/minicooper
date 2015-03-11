@@ -5,6 +5,8 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDec 1.2"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/BlueCove 2.1.0"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JFreeChart 1.0.17"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSSC 2.6.0"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JCommon 1.0.22"/>
+	<classpathentry kind="lib" path="forms-1.3.0.jar" sourcepath="forms-1.3.0-src.zip"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

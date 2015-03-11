@@ -5,5 +5,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JCommon 1.0.22"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JFreeChart 1.0.17"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/BlueCove 2.1.0"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JSSC 2.6.0"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
