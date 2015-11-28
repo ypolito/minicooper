@@ -1,0 +1,1 @@
+Minicooper es el repsitorio de codigo desarrollado para el prouyecto Asfaltica. Contiene el codigo fuente Java, Andorid y Arduino.
